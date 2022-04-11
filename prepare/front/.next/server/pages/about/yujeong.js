@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = require('../ssr-module-cache.js');
+/******/ 	var installedModules = require('../../ssr-module-cache.js');
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -88,20 +88,31 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./pages/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./pages/about/yujeong.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./pages/index.js":
-/*!************************!*\
-  !*** ./pages/index.js ***!
-  \************************/
+/***/ "./pages/about/yujeong.js":
+/*!********************************!*\
+  !*** ./pages/about/yujeong.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"react/jsx-dev-runtime\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\nvar _jsxFileName = \"/Users/yujeong/Documents/study/nodebird/prepare/front/pages/index.js\";\n\n\n// next는 imoprt React가 불필요\n// import React from 'react'\nconst Home = () => {\n  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__[\"jsxDEV\"])(\"div\", {\n    children: \"Hello, Next!\"\n  }, void 0, false, {\n    fileName: _jsxFileName,\n    lineNumber: 5,\n    columnNumber: 10\n  }, undefined);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Home); // pages 폴더 안에 있어야만 코드 스필릿팅이 가능하기 때문에 무조건 폴더이름은 pages여야한다//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9wYWdlcy9pbmRleC5qcz80NGQ4Il0sIm5hbWVzIjpbIkhvbWUiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBQ0E7QUFFQSxNQUFNQSxJQUFJLEdBQUcsTUFBTTtBQUNqQixzQkFBTztBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUFQO0FBQ0QsQ0FGRDs7QUFJZUEsbUVBQWYsRSxDQUVBIiwiZmlsZSI6Ii4vcGFnZXMvaW5kZXguanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBuZXh064qUIGltb3BydCBSZWFjdOqwgCDrtojtlYTsmpRcbi8vIGltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcblxuY29uc3QgSG9tZSA9ICgpID0+IHtcbiAgcmV0dXJuIDxkaXY+SGVsbG8sIE5leHQhPC9kaXY+O1xufTtcblxuZXhwb3J0IGRlZmF1bHQgSG9tZTtcblxuLy8gcGFnZXMg7Y+0642UIOyViOyXkCDsnojslrTslbzrp4wg7L2U65OcIOyKpO2VhOumv+2MheydtCDqsIDriqXtlZjquLAg65WM66y47JeQIOustOyhsOqxtCDtj7TrjZTsnbTrpoTsnYAgcGFnZXPsl6zslbztlZzri6RcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./pages/index.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"react\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"react/jsx-dev-runtime\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__);\nvar _jsxFileName = \"/Users/yujeong/Documents/study/nodebird/prepare/front/pages/about/yujeong.js\";\n // pages 폴더 안에 폴더 생성 후 파일을 만들 시 경로는 그 폴더 이름을 따라간다\n// /about/yujeong\n\n\n\nconst Yujeong = () => {\n  return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__[\"jsxDEV\"])(\"div\", {\n    children: \"Hello, yujeong!\"\n  }, void 0, false, {\n    fileName: _jsxFileName,\n    lineNumber: 6,\n    columnNumber: 10\n  }, undefined);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Yujeong);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9wYWdlcy9hYm91dC95dWplb25nLmpzPzZmZGIiXSwibmFtZXMiOlsiWXVqZW9uZyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0NBRUE7QUFDQTs7OztBQUNBLE1BQU1BLE9BQU8sR0FBRyxNQUFNO0FBQ3BCLHNCQUFPO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBQVA7QUFDRCxDQUZEOztBQUllQSxzRUFBZiIsImZpbGUiOiIuL3BhZ2VzL2Fib3V0L3l1amVvbmcuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuXG4vLyBwYWdlcyDtj7TrjZQg7JWI7JeQIO2PtOuNlCDsg53shLEg7ZuEIO2MjOydvOydhCDrp4zrk6Qg7IucIOqyveuhnOuKlCDqt7gg7Y+0642UIOydtOumhOydhCDrlLDrnbzqsITri6Rcbi8vIC9hYm91dC95dWplb25nXG5jb25zdCBZdWplb25nID0gKCkgPT4ge1xuICByZXR1cm4gPGRpdj5IZWxsbywgeXVqZW9uZyE8L2Rpdj47XG59O1xuXG5leHBvcnQgZGVmYXVsdCBZdWplb25nO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./pages/about/yujeong.js\n");
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"react\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZXh0ZXJuYWwgXCJyZWFjdFwiPzU4OGUiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEiLCJmaWxlIjoicmVhY3QuanMiLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoXCJyZWFjdFwiKTsiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///react\n");
 
 /***/ }),
 

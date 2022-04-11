@@ -23,6 +23,16 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/about/yujeong": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/about/yujeong.js"
+    ],
+    "/profile": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/profile.js"
     ]
   },
   "ampFirstPages": []
