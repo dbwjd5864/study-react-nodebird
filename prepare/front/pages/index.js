@@ -1,8 +1,15 @@
 // next는 imoprt React가 불필요
 // import React from 'react'
 
+import React from 'react';
+import AppLayout from '../components/AppLayout';
+
 const Home = () => {
-  return <div>Hello, Next!</div>;
+  return (
+    <AppLayout>
+      <div>Hello, Next!</div>
+    </AppLayout>
+  );
 };
 
 export default Home;

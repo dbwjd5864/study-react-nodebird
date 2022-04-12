@@ -1,0 +1,29 @@
+// .eslintrc : linux나 mac에서 앞에 .이 붙으면 숨김파일을 의미
+
+{
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    //"eslint:recommended" 은 기본적인 자바스크립트 문법 오류 검출 기능 제공
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "import",
+    "react-hooks"
+  ],
+  "rules":{
+
+  }
+}
