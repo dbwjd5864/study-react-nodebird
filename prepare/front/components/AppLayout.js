@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu } from 'antd';
+import { Menu, Input, Row, Col } from 'antd';
+import styled from 'styled-components';
+import LoginForm from '../components/LoginForm';
+import UserProfile from '../components/UserProfile.js';
+
+const SearchInput = styled(Input.Search)`
+  vertical-align: middle;
+`;
 
 const AppLayout = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // const style = useMemo(() => ({marginTop: 10}), []);
+
+  // return 부분이 virtualDom
+  // 이전 부분과 현재 부분에서 달라진 부분만 다시 그려줌
   return (
     <div>
       <Menu mode="horizontal">
@@ -19,12 +32,39 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item>
+          <SearchInput />
+          {/* styled-component를 사용하기 싫으나 리렌더링을 피해야 할 경우 useMemo도 사용가능 */}
+          {/* <div style={style} /> */}
+        </Menu.Item>
+        <Menu.Item>
           <Link href="/signup">
             <a>회원가입</a>
           </Link>
         </Menu.Item>
       </Menu>
-      {children}
+      {/* gutter = 컬럼 사이에 간격 */}
+      <Row gutter={8}>
+        <Col xs={24} md={6}>
+          {isLoggedIn ? (
+            <UserProfile setIsLoggedIn={setIsLoggedIn} />
+          ) : (
+            <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          )}
+        </Col>
+        <Col xs={24} md={12}>
+          {children}
+        </Col>
+        <Col xs={24} md={6}>
+          {/* 보안상 문제로 target: _blank를 사용할 때는 rel에 noreferrer noopener 추가로 사용해야 한다 */}
+          <a
+            href="https://yujeong-portfolio.netlify.app/"
+            target={'_blank'}
+            rel="noreferrer noopener"
+          >
+            Made by Yujeong
+          </a>
+        </Col>
+      </Row>
     </div>
   );
 };
