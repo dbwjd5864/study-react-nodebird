@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
+import useInput from '../hooks/useInput';
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -12,17 +13,19 @@ const FormWrapper = styled(Form)`
 `;
 
 const LoginForm = ({ setIsLoggedIn }) => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  // const [id, setId] = useState('');
+  // const [password, setPassword] = useState('');
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   // 컴포넌트에 props로 넘기는 함수는 useCallback 사용 권장 => 최적화를 위해
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
+  // const onChangeId = useCallback((e) => {
+  // setId(e.target.value);
+  // }, []);
 
-  const onChangePassword = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
+  // const onChangePassword = useCallback((e) => {
+  //   setPassword(e.target.value);
+  // }, []);
 
   const onSubmitForm = useCallback(() => {
     // antd e.preventDefault는 하면 안됨
