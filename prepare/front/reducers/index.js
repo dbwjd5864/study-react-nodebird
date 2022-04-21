@@ -1,3 +1,5 @@
+import { HYDRATE } from 'next-redux-wrapper';
+
 const initialState = {
   // name: 'yujeong',
   // age: 26,
@@ -30,6 +32,10 @@ export const logoutAction = () => {
 // (이전상태, 액션) => 다음상태
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HYDRATE:
+      console.log('HYDRATE');
+      return { ...state, ...action.payload };
+    // ...state처럼 불변셩을 유지해서 return을 하기때문에 history추적이 가능해진다 => redux devtools로 추적 가능해진다
     case 'LOG_IN':
       return {
         ...state,
@@ -48,6 +54,8 @@ const rootReducer = (state = initialState, action) => {
           user: null,
         },
       };
+    default:
+      return state;
   }
 };
 
