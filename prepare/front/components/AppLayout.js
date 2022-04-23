@@ -15,6 +15,7 @@ const AppLayout = ({ children }) => {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // isLoggedIn이 바뀌면 알아서 Layout 컴포넌트가 리렌더링됨
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  //구조 분해 할당도 가능 const {isLoggedIn} = useSelector((state) => state.user);
 
   // const style = useMemo(() => ({marginTop: 10}), []);
 
