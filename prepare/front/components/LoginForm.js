@@ -6,6 +6,7 @@ import useInput from '../hooks/useInput';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../reducers/user';
 
+// styled-component를 서버 사이드 적용을 안해주면 바로 적용이 안됨
 const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;

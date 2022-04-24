@@ -22,7 +22,7 @@
     "eslint-plugin-react-hooks": "^4.4.0"
   },
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 3600",
     "build": "next build"
   },
   "author": "Yujeong",
