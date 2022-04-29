@@ -5,11 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
 
 const configureStore = () => {
+    // 미들웨어는 리덕스의 기능을 향상시켜주는 역할
+    // 리덕스 덩크는 리덕스가 비동기 액션을 디스패치 하도록 해줌 => 하나의 비동기 액션안에 여러개의 동기 액션(디스패치)를 할 수 있게 됨
+    // 덩크는 지연의 의미를 가지고 있음
     const middlewares = [];
-  const enhancer =
-    process.env.NODE_ENV === 'production'
-      ? compose(applyMiddleware(...middlewares))
-      : composeWithDevTools(applyMiddleware(...middlewares));
+    const enhancer =
+        process.env.NODE_ENV === 'production'
+            ? compose(applyMiddleware(...middlewares))
+            : composeWithDevTools(applyMiddleware(...middlewares));
   // 미들웨어는 enhancer를 통해 설정가능
   const store = createStore(reducer, enhancer);
   return store;
