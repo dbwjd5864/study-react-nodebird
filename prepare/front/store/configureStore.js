@@ -1,8 +1,14 @@
 import { createWrapper } from 'next-redux-wrapper';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk'
 
 import reducer from '../reducers';
+
+const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
+    console.log(action);
+    return next(action);
+};
 
 const configureStore = () => {
     // 미들웨어는 리덕스의 기능을 향상시켜주는 역할
