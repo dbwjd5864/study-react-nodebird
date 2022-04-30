@@ -12,6 +12,7 @@ const SearchInput = styled(Input.Search)`
   vertical-align: middle;
 `;
 
+// gutter scroll 문제 해결
 const Global = createGlobalStyle`
   .ant-row{
     margin-left: 0 !important;

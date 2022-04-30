@@ -67,6 +67,9 @@ export const Indicator = styled.div`
   }
 `;
 
+// 아무곳에나 <Global />로 넣어주는 순간 스타일로 들어감
+// 기존 클래스 네임이 존재하는경우 createGlobalStyle을 통해 그 클래스 네임 자체를 덮어씌울 수 있음
+//전역 변수
 export const Global = createGlobalStyle`
   .slick-slide {
     display: inline-block;
