@@ -1,9 +1,10 @@
 import { createWrapper } from 'next-redux-wrapper';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import reducer from '../reducers';
+import rootSaga from '../sagas';
 
 const loggerMiddleware =
   ({ dispatch, getState }) =>
@@ -24,7 +25,8 @@ const configureStore = () => {
   // 미들웨어는 리덕스의 기능을 향상시켜주는 역할
   // 리덕스 덩크는 리덕스가 비동기 액션을 디스패치 하도록 해줌 => 하나의 비동기 액션안에 여러개의 동기 액션(디스패치)를 할 수 있게 됨
   // 덩크는 지연의 의미를 가지고 있음
-  const middlewares = [thunkMiddleware, loggerMiddleware];
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [sagaMiddleware, loggerMiddleware];
 
   // 리덕스 데브 툴즈가 동작하는것도 미들웨어가 있기 때문에
   const enhancer =
@@ -33,6 +35,7 @@ const configureStore = () => {
       : composeWithDevTools(applyMiddleware(...middlewares));
   // 미들웨어는 enhancer를 통해 설정가능
   const store = createStore(reducer, enhancer);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 
