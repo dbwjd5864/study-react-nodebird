@@ -1,9 +1,12 @@
 import axios from "axios";
 
 const initialState = {
-  isLoggingIn: false, // 로그인 시도중
-  isLoggedIn: false,
-  isLoggingOut: false, // 로그아웃 시도중
+  logInLoading: false, // 로그인 시도중
+  logInDone: false,
+  logInError: null,
+  logOutLoading: false, // 로그아웃 시도중
+  logOutDone: false,
+  logOutFailure: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -59,19 +62,21 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_REQUEST:
       return {
         ...state,
-        isLoggingIn: true,
+        logInLoading: true,
+        logInError: null,
+        logInDone: false
       };
     case LOG_IN_SUCCESS:
       return {
         ...state,
-        isLoggingIn: false,
-        isLoggedIn: true,
+        logInLoading: false,
+        logInDone: true,
         me: { ...action.data, nickname: 'yujeong'},
       };
     case LOG_IN_FAILURE:
       return {
         ...state,
-        isLoggingIn: false,
+        logInLoading: false,
         isLoggedIn: false,
         me: action.data,
       };
