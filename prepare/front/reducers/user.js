@@ -1,66 +1,76 @@
+import axios from "axios";
+
 const initialState = {
+  isLoggingIn: false, // 로그인 시도중
   isLoggedIn: false,
+  isLoggingOut: false, // 로그아웃 시도중
   me: null,
   signUpData: {},
   loginData: {},
 };
 
-export const loginAction = (data) => {
-  return (dispatch, getState) => {
-    // initialState가 나올것
-    const state = getState();
-    dispatch(loginReuquestAction());
-    axios
-      .post('/api/login')
-      .then((res) => {
-        dispatch(loginSuccessAction(res.data));
-      })
-      .catch((err) => {
-        dispatch(loginFailureAction(err));
-      });
-  };
-};
+// export const loginAction = (data) => {
+//   return (dispatch, getState) => {
+//     // initialState가 나올것
+//     const state = getState();
+//     dispatch(loginRequestAction());
+//     axios
+//       .post('/api/login')
+//       .then((res) => {
+//         dispatch(loginSuccessAction(res.data));
+//       })
+//       .catch((err) => {
+//         dispatch(logOutFailureAction(err));
+//       });
+//   };
+// };
 
 // action creator
-export const loginReuquestAction = (data) => {
+export const loginRequestAction = (data) => {
   return { type: 'LOG_IN_REQUEST', data };
 };
 
-export const loginSuccessAction = (data) => {
-  return { type: 'LOG_IN_SUCCESS', data };
-};
-
-export const loginFailureAction = (data) => {
-  return { type: 'LOG_IN_FAUILURE', data };
-};
-
-export const logoutReuquestAction = () => {
+export const logoutRequestAction = () => {
   return { type: 'LOG_OUT_REQUEST' };
-};
-
-export const logoutSuccessAction = () => {
-  return { type: 'LOG_OUT_SUCCESS' };
-};
-
-export const logoutFailureAction = () => {
-  return { type: 'LOG_OUT_FAUILURE' };
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOG_IN':
+    case 'LOG_IN_REQUEST':
       return {
         ...state,
-
+        isLoggingIn: true,
+      };
+    case 'LOG_IN_SUCCESS':
+      return {
+        ...state,
+        isLoggingIn: false,
         isLoggedIn: true,
+        me: { ...action.data, nickname: 'yujeong'},
+      };
+    case 'LOG_IN_FAILURE':
+      return {
+        ...state,
+        isLoggingIn: false,
+        isLoggedIn: false,
         me: action.data,
       };
-    case 'LOG_OUT':
+    case 'LOG_OUT_REQUEST':
       return {
         ...state,
-
+        isLoggingOut: true,
+      };
+    case 'LOG_OUT_SUCCESS':
+      return {
+        ...state,
+        isLoggingOut: false,
         isLoggedIn: false,
         me: null,
+      };
+    case 'LOG_OUT_FAILURE':
+      return {
+        ...state,
+        isLoggingOut: false,
       };
 
     default:
