@@ -6,7 +6,10 @@ const initialState = {
   logInError: null,
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
-  logOutFailure: null,
+  logOutError: null,
+  signUpLoading: false, // 사인업 시도중
+  signUpDone: false,
+  signUpError: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -48,6 +51,15 @@ export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
+const dummyUser = data => ({
+  ...data,
+  nickname: '유정',
+  id:1,
+  Posts: [],
+  Followings: [],
+  Followers: []
+})
+
 // action creator
 export const loginRequestAction = (data) => {
   return { type: LOG_IN_REQUEST, data };
@@ -71,33 +83,53 @@ const reducer = (state = initialState, action) => {
         ...state,
         logInLoading: false,
         logInDone: true,
-        me: { ...action.data, nickname: 'yujeong'},
+        me: dummyUser(action.data),
       };
     case LOG_IN_FAILURE:
       return {
         ...state,
         logInLoading: false,
-        isLoggedIn: false,
-        me: action.data,
+        logInError: action.error,
       };
     case LOG_OUT_REQUEST:
       return {
         ...state,
-        isLoggingOut: true,
+        logOutLoading: true,
+        logOutDone: false,
+        logOutError: null,
       };
     case LOG_OUT_SUCCESS:
       return {
         ...state,
-        isLoggingOut: false,
-        isLoggedIn: false,
+        logOutLoading: false,
+        logOutDone: true,
         me: null,
       };
     case LOG_OUT_FAILURE:
       return {
         ...state,
-        isLoggingOut: false,
+        logOutLoading: false,
+        logOutError: action.error
       };
-
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
+        signUpLoading: true,
+        signUpDone: false,
+        signUpError: null,
+      };
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: true,
+      };
+    case SIGN_UP_FAILURE:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpError: action.error
+      };
     default:
       return state;
   }
