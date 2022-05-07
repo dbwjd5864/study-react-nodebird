@@ -12,11 +12,14 @@ import PropTypes from 'prop-types';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
+import { REMOVE_POST_REQUEST } from '../reducers/post';
 
 const PostCard = ({ post }) => {
   // const { me } = useSelector((state) => state.user);
   // optional chanining
   // const id = me?.id;
+  const dispatch = useDispatch();
+  const { removePostLoading } = useSelector((state) => state.post);
   const id = useSelector((state) => state.user.me?.id);
 
   const [liked, setLiked] = useState(false);
@@ -24,7 +27,12 @@ const PostCard = ({ post }) => {
 
   const onClickUpdate = () => {};
 
-  const onRemovePost = () => {};
+  const onRemovePost = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    });
+  }, []);
 
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
@@ -65,7 +73,7 @@ const PostCard = ({ post }) => {
                   )}
                   <Button
                     type="danger"
-                    // loading={removePostLoading}
+                    loading={removePostLoading}
                     onClick={onRemovePost}
                   >
                     삭제

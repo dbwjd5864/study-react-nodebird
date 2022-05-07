@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const initialState = {
   logInLoading: false, // 로그인 시도중
@@ -7,9 +7,15 @@ const initialState = {
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
-  signUpLoading: false, // 사인업 시도중
+  signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  changeNicknameLoading: false, // 닉네임 변경 시도중
+  changeNicknameDone: false,
+  changeNicknameError: null,
+  removePostLoading: false,
+  removePostDone: false,
+  removePostError: null,
   me: null,
   signUpData: {},
   loginData: {},
@@ -51,14 +57,25 @@ export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
-const dummyUser = data => ({
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
+
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
+export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
+export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
+
+const dummyUser = (data) => ({
   ...data,
   nickname: '유정',
-  id:1,
-  Posts: [],
-  Followings: [],
-  Followers: []
-})
+  id: 1,
+  Posts: [{ id: 1 }],
+  Followings: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
+  Followers: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
+});
 
 // action creator
 export const loginRequestAction = (data) => {
@@ -76,7 +93,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         logInLoading: true,
         logInError: null,
-        logInDone: false
+        logInDone: false,
       };
     case LOG_IN_SUCCESS:
       return {
@@ -109,7 +126,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         logOutLoading: false,
-        logOutError: action.error
+        logOutError: action.error,
       };
     case SIGN_UP_REQUEST:
       return {
@@ -128,7 +145,66 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         signUpLoading: false,
-        signUpError: action.error
+        signUpError: action.error,
+      };
+    case CHANGE_NICKNAME_REQUEST:
+      return {
+        ...state,
+        changeNicknameLoading: true,
+        changeNicknameError: null,
+        changeNicknameDone: false,
+      };
+    case CHANGE_NICKNAME_SUCCESS:
+      return {
+        ...state,
+        me: {
+          ...me,
+          nickname: action.data.nickname,
+        },
+        changeNicknameLoading: false,
+        changeNicknameDone: true,
+      };
+    case CHANGE_NICKNAME_FAILURE:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameError: action.error,
+      };
+    case REMOVE_POST_REQUEST:
+      return {
+        ...state,
+        removePostLoading: true,
+        removePostDone: false,
+        removePostError: null,
+      };
+    case REMOVE_POST_SUCCESS:
+      return {
+        ...state,
+        mainPosts: state.mainPosts.filter((v) => v.id !== action.data),
+        removePostLoading: false,
+        removePostDone: true,
+      };
+    case REMOVE_POST_FAILURE:
+      return {
+        ...state,
+        removePostLoading: false,
+        removePostError: action.error,
+      };
+    case ADD_POST_TO_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: [{ id: action.data }, ...state.me.Posts],
+        },
+      };
+    case REMOVE_POST_OF_ME:
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: state.me.Posts((post) => post.id !== action.data),
+        },
       };
     default:
       return state;

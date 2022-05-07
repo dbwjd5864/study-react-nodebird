@@ -8,12 +8,12 @@ import PostForm from '../components/PostForm.js';
 import PostCard from '../components/PostCard.js';
 
 const Home = () => {
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
   return (
     <AppLayout>
-      {isLoggedIn && <PostForm />}
+      {me && <PostForm />}
       {/* 반복문이 바뀌는경우 index를 키로 쓰면 안됨, 예를 들어, 포스트같이 지워질 수 있는 경우는 index를 키로 쓰는것은 안티패턴 */}
       {mainPosts.map((post) => (
         <PostCard key={post.id} post={post} />
