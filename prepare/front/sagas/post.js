@@ -8,13 +8,10 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_FAILURE,
-} from '../reducers/post';
-import {
-  ADD_POST_TO_ME,
   REMOVE_POST_FAILURE,
-  REMOVE_POST_OF_ME,
   REMOVE_POST_SUCCESS,
-} from '../reducers/user';
+} from '../reducers/post';
+import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
 function addPostAPI(data) {
   return axios.post('/api/post', data);
