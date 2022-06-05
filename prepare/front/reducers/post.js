@@ -3,37 +3,12 @@ import produce from 'immer';
 import faker from 'faker';
 
 const initialState = {
-  mainPosts: [
-    {
-      // id, content같은 경우는 포스트 자체에 정보지만 다른 User, Images, Commnets은 같은 경우는 다른 정보들과 합쳐서 내려오기때문에 대문자로 기본 설정
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '제이드',
-      },
-      content: '첫 번째 게시글 #해시태그 #익스프레스',
-      Images: [
-        {
-          src: '',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'Test',
-          },
-          content: '우와',
-        },
-        {
-          User: {
-            nickname: 'Test2',
-          },
-          content: '우와222',
-        },
-      ],
-    },
-  ],
+  mainPosts: [],
   imagePaths: [],
+  hasMorePosts: true,
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
   postAdded: false,
   addPostLoading: false,
   addPostDone: false,
@@ -46,26 +21,35 @@ const initialState = {
   removePostError: null,
 };
 
-initialState.mainPosts = initialState.mainPosts.concat(
-    Array(20).fill().map((v, i) => ({
+export const generateDummyPost = (number) =>
+  Array(number)
+    .fill()
+    .map(() => ({
+      id: shortid.generate(),
+      User: {
         id: shortid.generate(),
-        User:{
-            id: shortid.generate(),
-                nickname: faker.name.findName(),
-        },
+        nickname: faker.name.findName(),
+      },
       content: faker.lorem.paragraph(),
-      Images: [{
+      Images: [
+        {
           src: faker.image.image(),
-      }],
-      Comments: [{
-        User:{
-          id: shortid.generate(),
-          nickname: faker.name.findName()
         },
-        content: faker.lorem.sentence()
-      }]
-    }))
-);
+      ],
+      Comments: [
+        {
+          User: {
+            id: shortid.generate(),
+            nickname: faker.name.findName(),
+          },
+          content: faker.lorem.sentence(),
+        },
+      ],
+    }));
+
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -113,6 +97,21 @@ const dummyComment = (data) => ({
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true;
+        draft.loadPostsDone = false;
+        draft.loadPostsError = null;
+        break;
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false;
+        draft.loadPostsDone = true;
+        draft.mainPosts = draft.mainPosts.concat(action.data);
+        draft.hasMorePosts = draft.mainPosts.length < 50;
+        break;
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false;
+        draft.loadPostsError = action.error;
+        break;
       case ADD_POST_REQUEST:
         draft.addPostLoading = true;
         draft.addPostDone = false;
@@ -137,7 +136,8 @@ const reducer = (state = initialState, action) => {
       //   addPostDone: true,
       // };
       case ADD_POST_FAILURE:
-        (draft.addPostLoading = false), (draft.addPostError = action.error);
+        draft.addPostLoading = false;
+        draft.addPostError = action.error;
         break;
       // return {
       //   ...state,

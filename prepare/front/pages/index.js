@@ -1,15 +1,51 @@
 // next는 imoprt React가 불필요
 // import React from 'react'
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AppLayout from '../components/AppLayout';
 import PostForm from '../components/PostForm.js';
 import PostCard from '../components/PostCard.js';
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { WindowsOutlined } from '@ant-design/icons';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const { me } = useSelector((state) => state.user);
-  const { mainPosts } = useSelector((state) => state.post);
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    (state) => state.post
+  );
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+    });
+  }, []);
+
+  useEffect(() => {
+    function onScroll() {
+      // window.scrollY, : 얼마나 내렸는지
+      //document.documentElement.clientHeight : 화면에 보이는 부분, 변하지 않음
+      //document.documentElement.scrollHeight : 총 길이, 변하지 않음
+      // window.scrollY + clientHeight = scrollHeight
+      if (
+        window.scrollY + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (hasMorePosts && !loadPostsLoading) {
+          dispatch({
+            type: LOAD_POSTS_REQUEST,
+          });
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    // useEffect에서 window에 이벤트 리스너를 걸때는 꼭 return으로 해제해줘야함. 그렇지 않으면 메모리에 계속 쌓여있음
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [hasMorePosts, loadPostsLoading]);
 
   return (
     <AppLayout>
