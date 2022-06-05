@@ -1,6 +1,7 @@
 import shortid from 'shortid';
 import produce from 'immer';
 import faker from 'faker';
+//react-virtualized를 통해 메모리를 아낄 수 있음
 
 const initialState = {
   mainPosts: [],
