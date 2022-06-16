@@ -1,5 +1,6 @@
 const express = require('express');
 const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const db = require('./models');
 
 const app = express();
@@ -9,6 +10,13 @@ db.sequelize.sync()
         console.log('db 연결 성공');
     })
     .catch(console.error);
+
+// 위에서 밑으로 코드가 실행되기 때문에 라우터보다 위에서 실행
+// app. ~ 나오기전에 req.body를 사용하기 위해서는
+// use안에 들어가는것이 미들웨어
+app.use(express.json());
+// 폼을 처리할때
+app.use(express.urlencoded({extended: true}));
 
 // app.get => 가져오다
 // app.post => 생성하다
@@ -35,6 +43,7 @@ app.get('/api/posts', (req, res) => {
 })
 
 app.use('/post', postRouter);
+app.use('/user', userRouter);
 // app.post('/post', (req, res) => {
 //     res.json({id: 1, content: 'hello'});
 // })
