@@ -2,6 +2,12 @@ const express = require('express');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const db = require('./models');
+const cors = require('cors');
+
+// 브라우저에서 다른 도메인 서버로 요청했을때만 cors 에러 발생
+// 서버에서 서버로는 안생김
+// 1. proxy : 브라우저(3060) -> 프론트 서버(3060) -> 백엔드 서버 (3065) -> 프론트 -> 브라우저
+// 2. Access-Control-Allow-Origin
 
 const app = express();
 
@@ -14,6 +20,10 @@ db.sequelize.sync()
 // 위에서 밑으로 코드가 실행되기 때문에 라우터보다 위에서 실행
 // app. ~ 나오기전에 req.body를 사용하기 위해서는
 // use안에 들어가는것이 미들웨어
+app.use(cors({
+    origin: true,
+    credentials: false,
+}));
 app.use(express.json());
 // 폼을 처리할때
 app.use(express.urlencoded({extended: true}));

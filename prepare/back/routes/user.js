@@ -34,6 +34,7 @@ router.post('/', async (req, res, next) => {
             password: hashedPassword,
         });
         // 잘 생성됐다 : 201
+        // res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(201).send('ok');
     }catch (error){
         console.log(error);
