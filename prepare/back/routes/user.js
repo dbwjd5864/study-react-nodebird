@@ -1,8 +1,35 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 const { User } = require('../models');
 
 const router = express.Router();
+
+//POST /user/login
+// 미들웨어를 확장하는 방법
+router.post('login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info)=> {
+        // 서버 쪽 에러
+        if(err){
+            console.error(err);
+            return next(err);
+        }
+        // client 에러
+        if(info){
+            return res.status(401).send(info.reason);
+        }
+
+        //성공
+        return req.login(user, async (loginErr) => {
+            if(loginErr){
+                // passport 내에서 로그인 에러가 날때
+                console.error(loginErr);
+                return next(loginErr);
+            }
+            return res.json(user);
+        })
+    })(req, res, next);
+});
 
 // POST /user/
 router.post('/', async (req, res, next) => {

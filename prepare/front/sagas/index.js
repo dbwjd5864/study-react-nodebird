@@ -3,8 +3,11 @@ import {
   fork,
 } from 'redux-saga/effects';
 
+import axios from 'axios';
 import postSaga from "./post";
 import userSaga from "./user";
+
+axios.defaults.baseURL = 'http://localhost:3065';
 
 // rootSaga를 만들어두고 거기에 사용하고싶은 비동기 액션들을 넣어준다
 export default function* rootSaga() {

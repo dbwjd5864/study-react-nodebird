@@ -26,7 +26,7 @@ import {
 } from '../reducers/user';
 
 function followAPI(data) {
-  return axios.patch(`/api/follow`);
+  return axios.patch(`/user/follow`);
 }
 
 function* follow(action) {
@@ -47,7 +47,7 @@ function* follow(action) {
 }
 
 function unfollowAPI(data) {
-  return axios.delete(`/api/unfollow`);
+  return axios.delete(`/user/unfollow`);
 }
 
 function* unfollow(action) {
@@ -68,7 +68,7 @@ function* unfollow(action) {
 }
 
 function logInAPI(data) {
-  return axios.post('/api/login', data);
+  return axios.post('/user/login', data);
 }
 
 // LOG_IN_REQUEST 의 action 자체가 매개변수로 넘어옴
@@ -77,16 +77,16 @@ function* login(action) {
   try {
     // 서버의 결고 요청값을 받음
     // 무조건 결과값을 받아와야하기때문에 fork가 아닌 call
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
-    yield put({ type: LOG_IN_SUCCESS, data: action.data });
+    const result = yield call(logInAPI, action.data);
+
+    yield put({ type: LOG_IN_SUCCESS, data: result.data });
   } catch (err) {
     yield put({ type: LOG_IN_FAILURE, error: err.response.data });
   }
 }
 
 function logOutAPI() {
-  return axios.post('/api/logout');
+  return axios.post('/user/logout');
 }
 
 function* logOut() {
@@ -100,7 +100,7 @@ function* logOut() {
 }
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:3065/user', data);
+  return axios.post('/user', data);
 }
 
 function* signUp(action) {

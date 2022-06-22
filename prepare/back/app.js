@@ -3,6 +3,7 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const db = require('./models');
 const cors = require('cors');
+const passportConfig = require('./passport');
 
 // 브라우저에서 다른 도메인 서버로 요청했을때만 cors 에러 발생
 // 서버에서 서버로는 안생김
@@ -16,6 +17,7 @@ db.sequelize.sync()
         console.log('db 연결 성공');
     })
     .catch(console.error);
+passportConfig();
 
 // 위에서 밑으로 코드가 실행되기 때문에 라우터보다 위에서 실행
 // app. ~ 나오기전에 req.body를 사용하기 위해서는
