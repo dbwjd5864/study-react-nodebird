@@ -4,12 +4,18 @@ const userRouter = require('./routes/user');
 const db = require('./models');
 const cors = require('cors');
 const passportConfig = require('./passport');
+const session = require('./session');
+const passport = require("passport");
+const cookieParser = require("cookie-parser");
+const dotenv = require('dotenv');
+
+// .env 파일내 값이 자동으로 치환돼서 들어옴
+dotenv.config();
 
 // 브라우저에서 다른 도메인 서버로 요청했을때만 cors 에러 발생
 // 서버에서 서버로는 안생김
 // 1. proxy : 브라우저(3060) -> 프론트 서버(3060) -> 백엔드 서버 (3065) -> 프론트 -> 브라우저
 // 2. Access-Control-Allow-Origin
-
 const app = express();
 
 db.sequelize.sync()
@@ -29,6 +35,21 @@ app.use(cors({
 app.use(express.json());
 // 폼을 처리할때
 app.use(express.urlencoded({extended: true}));
+
+// 브라우저는 누구나 접속할 수 있기 때문에 보안에 취약
+// 로그인을 하면 브라우저(3060), 백엔드 서버(3065) 같은 정보를 들고 있지않음
+// 누가 로그인을 했는지 브라우저나 프론트로 보내줘야함
+// 비밀번호를 통째로 보내주면 해킹에 취약
+// 이를 보내주지 않고 쿠키를 보내줌
+// 서버쪽에는 그런 쿠키를 보내준다는걸 저장해둠 (세션)
+app.use(cookieParser('nodebirdSecret')); //  secret 과 같은 값이 들어가야함
+app.use(session({
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.COOKIE_SECRET
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // app.get => 가져오다
 // app.post => 생성하다
