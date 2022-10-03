@@ -2,15 +2,15 @@
 
 {
   // 기본 eslint가 코드를 해석하는것이 아니라 babel이 해석해서 최신문법도 에러발생하지 않게 함
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2022,
+    "requireConfigFile": false,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  
   "env": {
     "browser": true,
     "node": true,
@@ -18,7 +18,6 @@
   },
   "extends": [
     //"eslint:recommended" 은 기본적인 자바스크립트 문법 오류 검출 기능 제공
-    // "eslint:recommended",
     // "plugin:react/recommended"
     "airbnb"
   ],
