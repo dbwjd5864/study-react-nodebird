@@ -4,17 +4,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AppLayout from '../components/AppLayout';
-import PostForm from '../components/PostForm.js';
-import PostCard from '../components/PostCard.js';
+import PostForm from '../components/PostForm';
+import PostCard from '../components/PostCard';
 import { LOAD_POSTS_REQUEST } from '../reducers/post';
-import { WindowsOutlined } from '@ant-design/icons';
 
-const Home = () => {
+function Home() {
   const dispatch = useDispatch();
 
   const { me } = useSelector((state) => state.user);
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
+    (state) => state.post,
   );
 
   useEffect(() => {
@@ -26,12 +25,12 @@ const Home = () => {
   useEffect(() => {
     function onScroll() {
       // window.scrollY, : 얼마나 내렸는지
-      //document.documentElement.clientHeight : 화면에 보이는 부분, 변하지 않음
-      //document.documentElement.scrollHeight : 총 길이, 변하지 않음
+      // document.documentElement.clientHeight : 화면에 보이는 부분, 변하지 않음
+      // document.documentElement.scrollHeight : 총 길이, 변하지 않음
       // window.scrollY + clientHeight = scrollHeight
       if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        window.scrollY + document.documentElement.clientHeight
+        > document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           dispatch({
@@ -56,7 +55,7 @@ const Home = () => {
       ))}
     </AppLayout>
   );
-};
+}
 
 export default Home;
 

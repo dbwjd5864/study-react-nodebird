@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Input, Row, Col } from 'antd';
-import styled from 'styled-components';
-import LoginForm from '../components/LoginForm';
-import UserProfile from '../components/UserProfile.js';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
@@ -28,11 +27,11 @@ const Global = createGlobalStyle`
   }
 `;
 
-const AppLayout = ({ children }) => {
+function AppLayout({ children }) {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // isLoggedIn이 바뀌면 알아서 Layout 컴포넌트가 리렌더링됨
   // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  //구조 분해 할당도 가능
+  // 구조 분해 할당도 가능
   const { me } = useSelector((state) => state.user);
 
   // const style = useMemo(() => ({marginTop: 10}), []);
@@ -74,12 +73,12 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          {/* 보안상 문제로 target: _blank를 사용할 때는 rel에 noreferrer noopener 추가로 사용해야 한다 
+          {/* 보안상 문제로 target: _blank를 사용할 때는 rel에 noreferrer noopener 추가로 사용해야 한다
           새 창을 누가 열었는지에 대한 정보를 아예 없애는 것
           */}
           <a
             href="https://yujeong-portfolio.netlify.app/"
-            target={'_blank'}
+            target="_blank"
             rel="noreferrer noopener"
           >
             Made by Yujeong
@@ -88,7 +87,7 @@ const AppLayout = ({ children }) => {
       </Row>
     </div>
   );
-};
+}
 
 AppLayout.propTypes = {
   // 리액트에서 node란

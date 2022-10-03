@@ -1,24 +1,24 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
-import Router from 'next/router'
+import Router from 'next/router';
 
 import NicknameEditForm from '../components/NicknameEditForm';
 import FollowList from '../components/FollowList';
 
 import AppLayout from '../components/AppLayout';
 
-const Profile = () => {
+function Profile() {
   const { me } = useSelector((state) => state.user);
 
-  useEffect(()=>{
-    if(!(me && me.id)){
-        Router.push('/')
+  useEffect(() => {
+    if (!(me && me.id)) {
+      Router.push('/');
     }
-  }, [me && me.id])
+  }, [me && me.id]);
 
-  if(!me){
-      return null;
+  if (!me) {
+    return null;
   }
 
   return (
@@ -33,6 +33,6 @@ const Profile = () => {
       </AppLayout>
     </>
   );
-};
+}
 
 export default Profile;

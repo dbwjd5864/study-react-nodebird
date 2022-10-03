@@ -8,11 +8,13 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import 'antd/dist/antd.css';
 
-import wrapper from '../store/configureStore'
+import wrapper from '../store/configureStore';
 
-const NodeBird = ({ Component }) => {
+// _app.js는 pages들의 공통 부분이다.
+// 각 페이지들이 prop의 component로 넘어온다
+function NodeBird({ Component }) {
   return (
-      // next-redux-wrapper 에서는 이미 Provider를 내장해서 제공하기 때문에 Provider로 감싸줄 필요가 없음
+  // next-redux-wrapper 에서는 이미 Provider를 내장해서 제공하기 때문에 Provider로 감싸줄 필요가 없음
     <>
       <Head>
         <meta charSet="utf-8" />
@@ -21,7 +23,7 @@ const NodeBird = ({ Component }) => {
       <Component />
     </>
   );
-};
+}
 
 NodeBird.propTypes = {
   Component: PropTypes.elementType.isRequired,

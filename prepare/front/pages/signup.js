@@ -1,11 +1,11 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Form, Input, Checkbox, Button } from 'antd';
 import styled from 'styled-components';
+import Router from 'next/router';
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
-import Router from 'next/router';
 
 import { SIGN_UP_REQUEST } from '../reducers/user';
 
@@ -13,20 +13,20 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-const Signup = () => {
+function Signup() {
   const dispatch = useDispatch();
-  const { signUpLoading, signUpDone, signUpError, me } = useSelector(
-    (state) => state.user
+  const { signUpLoading, signUpDone, signUpError } = useSelector(
+    (state) => state.user,
   );
 
   useEffect(() => {
-    if(signUpDone){
+    if (signUpDone) {
       Router.push('/');
     }
   }, [signUpDone]);
 
   useEffect(() => {
-    if(signUpError){
+    if (signUpError) {
       alert(signUpError);
     }
   }, [signUpError]);
@@ -42,7 +42,7 @@ const Signup = () => {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [password]
+    [password],
   );
 
   const [term, setTerm] = useState('');
@@ -54,12 +54,14 @@ const Signup = () => {
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
-      return setPasswordError(true);
+      setPasswordError(true);
+      return;
     }
     if (!term) {
-      return setTermError(true);
+      setTermError(true);
+      return;
     }
-    console.log(email, nickname, password);
+
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { email, password, nickname },
@@ -132,6 +134,6 @@ const Signup = () => {
       </Form>
     </AppLayout>
   );
-};
+}
 
 export default Signup;
