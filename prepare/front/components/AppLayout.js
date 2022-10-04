@@ -66,6 +66,9 @@ function AppLayout({ children }) {
       </Menu>
       {/* gutter = 컬럼 사이에 간격 */}
       <Row gutter={8}>
+        {/* 모바일 퍼스트 xs: 모바일, sm: 태블릿 md: 작은 데스크탑 */}
+        {/* 일부러 특정 공간을 띄우는 offset 컬럼도 존재 */}
+        {/* 모바일 일때는 화면 100퍼센트를 차지한다 (24칸) */}
         <Col xs={24} md={6}>
           {me ? <UserProfile /> : <LoginForm />}
         </Col>
@@ -76,6 +79,7 @@ function AppLayout({ children }) {
           {/* 보안상 문제로 target: _blank를 사용할 때는 rel에 noreferrer noopener 추가로 사용해야 한다
           새 창을 누가 열었는지에 대한 정보를 아예 없애는 것
           */}
+          {/* referrer 이전 페이지, opener는 누가 열었는지를 의미 */}
           <a
             href="https://yujeong-portfolio.netlify.app/"
             target="_blank"

@@ -4,7 +4,7 @@ import Avatar from 'antd/lib/avatar/avatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequestAction } from '../reducers/user';
 
-const UserProfile = () => {
+function UserProfile() {
   const dispatch = useDispatch();
   const { me, logOutLoading } = useSelector((state) => state.user);
 
@@ -14,19 +14,20 @@ const UserProfile = () => {
   }, []);
 
   return (
+    // 리액트에서 배열로 jsx 키 필요
     <Card
       actions={[
-        <div key={'twit'}>
+        <div key="twit">
           짹짹
           <br />
           {me.Posts.length}
         </div>,
-        <div key={'followings'}>
+        <div key="followings">
           팔로잉
           <br />
           {me.Followings.length}
         </div>,
-        <div key={'followers'}>
+        <div key="followers">
           팔로워
           <br />
           {me.Followers.length}
@@ -42,6 +43,6 @@ const UserProfile = () => {
       </Button>
     </Card>
   );
-};
+}
 
 export default UserProfile;

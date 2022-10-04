@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
-import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
 import { loginRequestAction } from '../reducers/user';
 
 // styled-component를 서버 사이드 적용을 안해주면 바로 적용이 안됨
@@ -15,7 +15,9 @@ const FormWrapper = styled(Form)`
   padding: 10px;
 `;
 
-const LoginForm = () => {
+// 함수형 컴포넌트에서 리렌더링이 될 때는 함수 안에 처음부터 끝까지 다시 실행된다.
+// 하지만 return 부분을 다 다시 그리는 것이 아니라 그 안에서도 바뀌는 부분만 다시 그린다.
+function LoginForm() {
   const dispatch = useDispatch();
   const { logInLoading } = useSelector((state) => state.user);
   // const [id, setId] = useState('');
@@ -23,6 +25,7 @@ const LoginForm = () => {
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
+  // useMemo는 값을 캐싱, useCallback은 함수를 캐싱
   // 컴포넌트에 props로 넘기는 함수는 useCallback 사용 권장 => 최적화를 위해
   // const onChangeId = useCallback((e) => {
   // setId(e.target.value);
@@ -46,7 +49,7 @@ const LoginForm = () => {
         <br />
         <Input
           name="user-email"
-          type={'email'}
+          type="email"
           value={email}
           onChange={onChangeEmail}
           required
@@ -67,7 +70,7 @@ const LoginForm = () => {
         <Button type="primary" htmlType="submit" loading={logInLoading}>
           로그인
         </Button>
-        <Link href={'/singup'}>
+        <Link href="/singup">
           <a>
             <Button>회원가입</Button>
           </a>
@@ -75,6 +78,6 @@ const LoginForm = () => {
       </ButtonWrapper>
     </FormWrapper>
   );
-};
+}
 
 export default LoginForm;
