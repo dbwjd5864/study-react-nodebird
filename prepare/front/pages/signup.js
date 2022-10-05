@@ -6,11 +6,14 @@ import styled from 'styled-components';
 import Router from 'next/router';
 import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
-
 import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const ErrorMessage = styled.div`
   color: red;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 10;
 `;
 
 function Signup() {
@@ -45,7 +48,7 @@ function Signup() {
     [password],
   );
 
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
   const onChangeTerm = useCallback((e) => {
     setTerm(e.target.checked);
@@ -117,7 +120,7 @@ function Signup() {
             onChange={onChangePasswordCheck}
           />
           {passwordError && (
-            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
           )}
         </div>
         <div>
@@ -126,11 +129,11 @@ function Signup() {
           </Checkbox>
           {termError && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>}
         </div>
-        <div style={{ marginTop: 10 }}>
+        <ButtonContainer>
           <Button type="primary" htmlType="submit" loading={signUpLoading}>
             가입하기
           </Button>
-        </div>
+        </ButtonContainer>
       </Form>
     </AppLayout>
   );
