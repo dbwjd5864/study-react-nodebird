@@ -4,8 +4,7 @@
   // 기본 eslint가 코드를 해석하는것이 아니라 babel이 해석해서 최신문법도 에러발생하지 않게 함
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2022,
-    "requireConfigFile": false,
+    "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
@@ -23,7 +22,8 @@
   ],
   "plugins": [
     "import",
-    "react-hooks"
+    "react-hooks",
+    "jsx-a11y"
   ],
   "rules":{
     "jsx-a11y/label-has-associated-control": "off",
