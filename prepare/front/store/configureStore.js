@@ -26,10 +26,12 @@ const configureStore = () => {
   const middlewares = [sagaMiddleware, loggerMiddleware];
 
   // 리덕스 데브 툴즈가 동작하는것도 미들웨어가 있기 때문에
+  // 불변성을 지켜야지만 history가 유지된다.
   const enhancer = process.env.NODE_ENV === 'production'
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares));
   // 미들웨어는 enhancer를 통해 설정가능
+  // state와 reducer를 포함하는 것이 스토어
   const store = createStore(reducer, enhancer);
   store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
