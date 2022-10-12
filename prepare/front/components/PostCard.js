@@ -8,6 +8,7 @@ import {
   HeartTwoTone,
   MessageOutlined,
 } from '@ant-design/icons';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import PostImages from './PostImages';
 import CommentForm from './CommentForm';
@@ -15,9 +16,13 @@ import PostCardContent from './PostCardContent';
 import { REMOVE_POST_REQUEST } from '../reducers/post';
 import FollowButton from './FollowButton';
 
-const PostCard = ({ post }) => {
+const CardContainer = styled.div`
+    margin-bottom: 20
+`;
+
+function PostCard({ post }) {
   // const { me } = useSelector((state) => state.user);
-  // optional chanining
+  // optional chaining
   // const id = me?.id;
   const dispatch = useDispatch();
   const { removePostLoading } = useSelector((state) => state.post);
@@ -43,12 +48,12 @@ const PostCard = ({ post }) => {
     setCommentFormOpened((prev) => !prev);
   }, []);
 
-  const onLike = () => {};
+  // const onLike = () => {};
 
-  const onUnlike = () => {};
+  // const onUnlike = () => {};
 
   return (
-    <div style={{ marginBottom: 20 }}>
+    <CardContainer>
       <Card
         cover={post.Images[0] && <PostImages images={post.Images} />}
         // jsx안에 배열값에는 항상 키값이 필요
@@ -66,8 +71,9 @@ const PostCard = ({ post }) => {
           <MessageOutlined key="comment" onClick={onToggleComment} />,
           <Popover
             key="more"
-            content={
-              id && post.User.id === id ? (
+            content={(
+              <Button.Group>
+                id && post.User.id === id ? (
                 <>
                   {!post.RetweetId && (
                     <Button onClick={onClickUpdate}>수정</Button>
@@ -80,10 +86,11 @@ const PostCard = ({ post }) => {
                     삭제
                   </Button>
                 </>
-              ) : (
+                ) : (
                 <Button>신고</Button>
-              )
-            }
+                )
+              </Button.Group>
+            )}
           >
             <EllipsisOutlined />
           </Popover>,
@@ -98,6 +105,7 @@ const PostCard = ({ post }) => {
       </Card>
       {commentFormOpened && (
         <div>
+          {/* 어떤 게시글에 댓글을 달것인지 정보가 필요 */}
           <CommentForm post={post} />
           <List
             header={`${post.Comments.length}개의 댓글`}
@@ -115,18 +123,20 @@ const PostCard = ({ post }) => {
           />
         </div>
       )}
-      {/* <CommnetForm /> */}
+      {/* <CommentForm /> */}
       {/* <Comments /> */}
-    </div>
+    </CardContainer>
   );
-};
+}
 
 PostCard.propTypes = {
+  // shape는 속성들을 정의해줄 수 있다.
   post: PropTypes.shape({
     id: PropTypes.number,
     User: PropTypes.object,
     content: PropTypes.string,
     createdAt: PropTypes.string,
+    // 객체들의 배열
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
