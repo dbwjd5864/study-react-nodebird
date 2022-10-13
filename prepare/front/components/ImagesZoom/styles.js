@@ -2,7 +2,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { CloseOutlined } from '@ant-design/icons';
 
 // tagged template literal
-// 함수를 호출하는 두번째 방법
+// 함수를 호출하는 두번째 방법: func`` => styled.div는 함수이다 : es6부터
+// 일반함수와는 조금 다르게 동작
 export const Overlay = styled.div`
   position: fixed;
   z-index: 5000;
@@ -69,7 +70,8 @@ export const Indicator = styled.div`
 
 // 아무곳에나 <Global />로 넣어주는 순간 스타일로 들어감
 // 기존 클래스 네임이 존재하는경우 createGlobalStyle을 통해 그 클래스 네임 자체를 덮어씌울 수 있음
-//전역 변수
+// 전역 변수
+// transform 스타일 아래에서 fixed가 들어갈 경우 버그 존재
 export const Global = createGlobalStyle`
   .slick-slide {
     display: inline-block;
