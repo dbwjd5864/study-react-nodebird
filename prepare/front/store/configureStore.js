@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers';
 import rootSaga from '../sagas';
 
+// 액션이 디스패치 되는 것을 logging하는 미들웨어라 가정
 const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   // action은 원래 객체인데 Thunk에서는 action을 function으로 둘 수 있음
   // action이 function인 경우에는 지연 함수이기때문에 나중에 실행할 수 있게됨
@@ -21,6 +22,9 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 const configureStore = () => {
   // 미들웨어는 리덕스의 기능을 향상시켜주는 역할
   // 리덕스 덩크는 리덕스가 비동기 액션을 디스패치 하도록 해줌 => 하나의 비동기 액션안에 여러개의 동기 액션(디스패치)를 할 수 있게 됨
+  // 예를들어, axios 요청을 보낼 때 request action을 (loadPostRequest) 디스패치:
+  // 성공했을 때 다른 액션을 디스패치 (loadPostSuccess)
+  // 실패했을 때 (loadPostFailure)
   // 덩크는 지연의 의미를 가지고 있음
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware, loggerMiddleware];

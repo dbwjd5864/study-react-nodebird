@@ -24,6 +24,7 @@ const initialState = {
   loginData: {},
 };
 
+// redux-thunk를 쓰면 함수를 리턴하는 비동기 액션 크리에이터가 추가된다.
 // export const loginAction = (data) => {
 //   return (dispatch, getState) => {
 //     // initialState가 나올것

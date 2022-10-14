@@ -47,6 +47,9 @@ export const generateDummyPost = (number) => Array(number)
     ],
   }));
 
+// 대부분의 요청들은 다 비동기이다
+// 게시글을 작성하던, 코멘트를 작성하던 모든 기록들이 다 서버로 한번 넘어갔다가 제대로 처리되면 성공, 실패했으면 실패
+// 하지만 성공하고서 아무일도 안해도 상관은 없다
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';

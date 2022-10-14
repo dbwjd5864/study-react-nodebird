@@ -26,7 +26,7 @@ import {
 } from '../reducers/user';
 
 function followAPI(data) {
-  return axios.patch(`/user/follow`);
+  return axios.patch('/user/follow');
 }
 
 function* follow(action) {
@@ -47,7 +47,7 @@ function* follow(action) {
 }
 
 function unfollowAPI(data) {
-  return axios.delete(`/user/unfollow`);
+  return axios.delete('/user/unfollow');
 }
 
 function* unfollow(action) {
@@ -135,7 +135,7 @@ function* watchLogin() {
   // 앞에 실수로 눌렀던 것은 무시되고 마지막것만 실행된다
   // 하지만 요청은 그대로 가고 응답만 취소하는 것이기 때문에 backend단에서 데이터 처리시 유의해야함
   yield takeLatest(LOG_IN_REQUEST, login);
-  //첫번째 것만은 takeLeading
+  // 첫번째 것만은 takeLeading
 
   // throttle
   // 2초동안 요청은 딱 한번만 존재할 수 있음을 의미
