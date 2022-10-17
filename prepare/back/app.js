@@ -29,8 +29,8 @@ passportConfig();
 // app. ~ 나오기전에 req.body를 사용하기 위해서는
 // use안에 들어가는것이 미들웨어
 app.use(cors({
-    origin: true,
-    credentials: false,
+    origin: 'http://localhost:3060',
+    credentials: true,
 }));
 app.use(express.json());
 // 폼을 처리할때

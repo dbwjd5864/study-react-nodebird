@@ -23,6 +23,11 @@ import {
   UNFOLLOW_FAILURE,
   UNFOLLOW_REQUEST,
   UNFOLLOW_SUCCESS,
+  LOAD_USER_REQUEST,
+  LOAD_MY_INFO_REQUEST,
+  LOAD_USER_FAILURE,
+  LOAD_MY_INFO_SUCCESS,
+  LOAD_MY_INFO_FAILURE, LOAD_USER_SUCCESS,
 } from '../reducers/user';
 
 function followAPI(data) {
@@ -67,6 +72,47 @@ function* unfollow(action) {
   }
 }
 
+function loadUserAPI(data) {
+  return axios.get(`/user/${data}`);
+}
+
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    console.log('loadUserData', result.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USER_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadMyInfoAPI() {
+  return axios.get('/user');
+}
+
+function* loadMyInfo() {
+  try {
+    const result = yield call(loadMyInfoAPI);
+    yield put({
+      type: LOAD_MY_INFO_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_MY_INFO_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function logInAPI(data) {
   return axios.post('/user/login', data);
 }
@@ -93,7 +139,7 @@ function* logOut() {
   try {
     // const result = yield call(logOutAPI);
     yield delay(1000);
-    yield put({ type: LOG_OUT_SUCCESS, data: result.data });
+    yield put({ type: LOG_OUT_SUCCESS });
   } catch (err) {
     yield put({ type: LOG_OUT_FAILURE, error: err.response.data });
   }
@@ -118,6 +164,14 @@ function* watchFollow() {
 
 function* watchUnfollow() {
   yield takeLatest(UNFOLLOW_REQUEST, unfollow);
+}
+
+function* watchLoadUser() {
+  yield takeLatest(LOAD_USER_REQUEST, loadUser);
+}
+
+function* watchLoadMyInfo() {
+  yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo);
 }
 
 // LOG_IN 이라는 액션이 시작될때까지 기다림을 의미
@@ -154,6 +208,8 @@ export default function* userSaga() {
   yield all([
     fork(watchFollow),
     fork(watchUnfollow),
+    fork(watchLoadUser),
+    fork(watchLoadMyInfo),
     fork(watchLogin),
     fork(watchLogout),
     fork(watchSignUp),
