@@ -1,6 +1,7 @@
 const express = require('express');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
+const hashtagRouter = require('./routes/hashtag');
 const db = require('./models');
 const cors = require('cors');
 const passportConfig = require('./passport');
@@ -77,6 +78,7 @@ app.get('/api/posts', (req, res) => {
 
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+app.use('/hashtag', hashtagRouter);
 // app.post('/post', (req, res) => {
 //     res.json({id: 1, content: 'hello'});
 // })
