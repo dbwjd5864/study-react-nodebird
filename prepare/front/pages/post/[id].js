@@ -17,6 +17,10 @@ function Post() {
 
   const { singlePost } = useSelector((state) => state.post);
 
+  // if (router.isFallback) {
+  //   return <div>로딩중..</div>;
+  // }
+
   return (
     <AppLayout>
       <Head>
@@ -36,6 +40,22 @@ function Post() {
     </AppLayout>
   );
 }
+
+// 다이나믹 라우팅에서 getStaticProps를 사용하려면 무조건 사용해야하는 것이 getStaticPaths이다. => 다이나믹 라우팅에서 사용된다.
+// 두가지를 리턴해줘야한다. => path와 fallback
+// 미리 적어둔 params를 이용해 html 파일을 만들어준다.
+// 하지만 사용자들이 몇개의 포스팅을 만들지 모르는 상황에서 전부 다 html로 만들어둘 수 없다.
+// 즉 어느정도 제한을 두고 만들어둬야한다.
+// fallback을 true로 하면 미리 만들어두지 않은 페이지를 접근하려할 때 에러가 뜨지는 않지만 ssr이 되지는 않는다.
+// 실제 그 페이지를 불러오는 동안 기다리게 만들 수 있다.
+// export async function getStaticPaths() {
+//   return {
+//     paths: [{
+//       params: { id: '1' },
+//     }],
+//     fallback: true,
+//   };
+// }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
   const cookie = context.req ? context.req.headers.cookie : '';
