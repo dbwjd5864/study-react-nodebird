@@ -121,8 +121,14 @@ function logInAPI(data) {
 function* login(action) {
   // put은 dispatch와 비슷
   try {
-    // 서버의 결고 요청값을 받음
+    // 서버의 결과 요청값을 받음
+    // 성공 결과는 result.data
+    // 실패 결과는 err.response.data
+    // fork: 비동기 함수 호출, call: 동기 함수 호출
+    // call을 이용할 경우 loginAPI가 result를 보내될 때까지 대기
+    // fork는 await을 빠뜨린것같은 역할을 한다
     // 무조건 결과값을 받아와야하기때문에 fork가 아닌 call
+    // 첫번째 자리가 함수, 그 다음부터는 함수의 매개변수들이 넘어간다
     const result = yield call(logInAPI, action.data);
 
     yield put({ type: LOG_IN_SUCCESS, data: result.data });
@@ -188,12 +194,19 @@ function* watchLogin() {
 
   // 앞에 실수로 눌렀던 것은 무시되고 마지막것만 실행된다
   // 하지만 요청은 그대로 가고 응답만 취소하는 것이기 때문에 backend단에서 데이터 처리시 유의해야함
+  // 예를 들어 게시글 두개를 포스팅하는 버튼을 눌렀을 때 처음에는 게시글이 하나만 보여지나 후에 새로고침한 뒤에는 백엔드에서 두번 저장된 포스팅이 날라올 수 있음을 의
+  // 이미 완료되었다면 완료된것은 별개로 생각
+  // 동시에 두개가 들어갔을 때를 의미
   yield takeLatest(LOG_IN_REQUEST, login);
   // 첫번째 것만은 takeLeading
 
   // throttle
   // 2초동안 요청은 딱 한번만 존재할 수 있음을 의미
   // yield throttle('LOG_IN_REQUEST', login, 2000)
+
+  // 번외로 throttle vs debounce
+  // throttle: 마지막 함수가 호출된 후 일정 시간이 지나기 전에 다시 호출되지 않도록 하는 것
+  // debounce: 연이어 호출되는 함수들 중 마지막 함수(또는 제일 처음)만 호출되도록 하는 것
 }
 
 function* watchLogout() {
@@ -205,6 +218,8 @@ function* watchSignUp() {
 }
 
 export default function* userSaga() {
+  // all은 한방에 실행
+  // fork는 함수를 실행
   yield all([
     fork(watchFollow),
     fork(watchUnfollow),

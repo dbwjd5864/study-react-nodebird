@@ -35,6 +35,10 @@ function LoginForm() {
   //   setPassword(e.target.value);
   // }, []);
 
+  // 아이디 비밀번호를 적고 로그인을 누르면
+  // 로그인 리퀘스트 액션이 실행 => 사가의 이벤트 리스너 같은 역할을 하는 watchLogin에 잡히고 login이 실행
+  // 그와 동시에 리듀서에 스위치의 로그인 리퀘스트도 동시 실행된다 (순서는 존재)
+  // 로그인 석세스가 디스패치(put)되면 리듀서 스위치에서 로그인 석세스가 실행되고 me에 데이터가 들어간다
   const onSubmitForm = useCallback(() => {
     // antd e.preventDefault는 하면 안됨
     // onFinish에서 이미 적용되있기 때문에

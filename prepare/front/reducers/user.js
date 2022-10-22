@@ -81,14 +81,14 @@ export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
 
-const dummyUser = (data) => ({
-  ...data,
-  nickname: '유정',
-  id: 1,
-  Posts: [{ id: 1 }],
-  Followings: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
-  Followers: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
-});
+// const dummyUser = (data) => ({
+//   ...data,
+//   nickname: '유정',
+//   id: 1,
+//   Posts: [{ id: 1 }],
+//   Followings: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
+//   Followers: [{ nickname: 'ohh' }, { nickname: 'yeah' }, { nickname: 'test' }],
+// });
 
 // action creator
 export const loginRequestAction = (data) => ({ type: LOG_IN_REQUEST, data });
