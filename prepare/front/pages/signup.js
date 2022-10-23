@@ -10,7 +10,6 @@ import AppLayout from '../components/AppLayout';
 import useInput from '../hooks/useInput';
 import { LOAD_MY_INFO_REQUEST, SIGN_UP_REQUEST } from '../reducers/user';
 import wrapper from '../store/configureStore';
-import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
 const ErrorMessage = styled.div`
   color: red;

@@ -30,6 +30,7 @@ function PostForm() {
   const [text, onChangeText, setText] = useInput('');
 
   useEffect(() => {
+    // 이렇게 setText 쓰는 위치를 해줘야 만약에 addPost를 하여 에러가 발생했을 때 text를 초기화 시키는걸 막을 수 있음
     if (addPostDone) {
       setText('');
     }

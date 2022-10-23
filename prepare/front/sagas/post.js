@@ -44,6 +44,11 @@ function* addPost(action) {
     // const result = yield call(addPostAPI, action.data);
     yield delay(1000);
     yield put({ type: ADD_POST_SUCCESS, data: action.data });
+    const id = shortid.generate();
+    yield put({
+      type: ADD_POST_TO_ME,
+      data: id,
+    });
   } catch (err) {
     yield put({ type: ADD_POST_FAILURE, data: err.response.data });
   }
