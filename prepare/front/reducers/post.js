@@ -113,6 +113,7 @@ const dummyPost = (data) => ({
 // });
 
 // 리듀서란 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수 (불변성은 지키면서)
+// state는 건들면 안되고 draft만 조
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOAD_USER_POSTS_REQUEST:

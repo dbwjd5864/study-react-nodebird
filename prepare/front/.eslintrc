@@ -35,6 +35,7 @@
     "react/jsx-one-expression-per-line": "off",
     "object-curly-newline": "off",
     "linebreak-style": "off",
+    // immer를 위해 off를 해줘야함
     "no-param-reassign": "off"
   }
 }

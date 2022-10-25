@@ -305,7 +305,10 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       // };
     default:
       break;
+      // return state;
   }
 });
 
 export default reducer;
+
+// draft를 불변성 상관없이 바꾸면 immer가 알아서 다음 state를 불변성있게 만들어준다.
