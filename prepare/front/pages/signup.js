@@ -22,7 +22,7 @@ const ButtonContainer = styled.div`
 function Signup() {
   const dispatch = useDispatch();
   const { signUpLoading, signUpDone, signUpError } = useSelector(
-    (state) => state.user,
+    (state) => state.user
   );
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function Signup() {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [password],
+    [password]
   );
 
   const [term, setTerm] = useState(false);
@@ -123,7 +123,7 @@ function Signup() {
             onChange={onChangePasswordCheck}
           />
           {passwordError && (
-          <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
           )}
         </div>
         <div>
@@ -142,20 +142,22 @@ function Signup() {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
-  const cookie = context.req ? context.req.headers.cookie : '';
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
 
-  axios.defaults.headers.Cookie = '';
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
+    axios.defaults.headers.Cookie = '';
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+
+    context.store.dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    });
+
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
   }
-
-  context.store.dispatch({
-    type: LOAD_MY_INFO_REQUEST,
-  });
-
-  context.store.dispatch(END);
-  await context.store.sagaTask.toPromise();
-});
+);
 
 export default Signup;

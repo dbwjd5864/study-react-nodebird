@@ -19,11 +19,17 @@ const FormWrapper = styled(Form)`
 // 하지만 return 부분을 다 다시 그리는 것이 아니라 그 안에서도 바뀌는 부분만 다시 그린다.
 function LoginForm() {
   const dispatch = useDispatch();
-  const { logInLoading } = useSelector((state) => state.user);
+  const { logInLoading, logInError } = useSelector((state) => state.user);
   // const [id, setId] = useState('');
   // const [password, setPassword] = useState('');
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+
+  useEffect(() => {
+    if (logInError) {
+      alert(logInError);
+    }
+  }, [logInError]);
 
   // useMemo는 값을 캐싱, useCallback은 함수를 캐싱
   // 컴포넌트에 props로 넘기는 함수는 useCallback 사용 권장 => 최적화를 위해
